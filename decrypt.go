@@ -1,3 +1,5 @@
+// SPDX-License-Identifier: MIT
+
 package sic
 
 import (
@@ -6,13 +8,12 @@ import (
 	"compress/zlib"
 	"crypto/aes"
 	"crypto/cipher"
+	"crypto/pbkdf2"
 	"crypto/sha1"
 	"encoding/binary"
 	"errors"
 	"fmt"
 	"io"
-
-	"golang.org/x/crypto/pbkdf2"
 )
 
 // ErrIncorrectPassword means that the credentials are incorrect
@@ -38,7 +39,10 @@ func Decrypt(file io.Reader, password string) ([]byte, error) {
 	if err != nil {
 		return nil, fmt.Errorf("could not read nonce: %w", err)
 	}
-	pwd := pbkdf2.Key([]byte(password), salt, 10000, 32, sha1.New)
+	pwd, err := pbkdf2.Key(sha1.New, password, salt, 10000, 32)
+	if err != nil {
+		return nil, fmt.Errorf("could not derive key: %w", err)
+	}
 	_, err = readByteArray(data) // Idk what this is; salt but not necessary?!
 	if err != nil {
 		return nil, fmt.Errorf("could not read salt: %w", err)
@@ -55,20 +59,20 @@ func Decrypt(file io.Reader, password string) ([]byte, error) {
 	if err != nil {
 		return nil, fmt.Errorf("could not read remaining encrypted content: %w", err)
 	}
-	nonce, err = readByteArray(fd)
-	if err == io.ErrUnexpectedEOF {
+	innerNonce, err := readByteArray(fd)
+	if errors.Is(err, io.ErrUnexpectedEOF) {
 		return nil, ErrIncorrectPassword
 	} else if err != nil {
 		return nil, fmt.Errorf("could not read nonce: %w", err)
 	}
-	pwd, err = readByteArray(fd)
+	innerKey, err := readByteArray(fd)
 	if err != nil {
 		return nil, ErrIncorrectPassword
 	}
 	if _, err = readByteArray(fd); err != nil {
 		return nil, err
 	}
-	if err := decryptAES(pwd, nonce, &encFile); err != nil {
+	if err := decryptAES(innerKey, innerNonce, &encFile); err != nil {
 		return nil, fmt.Errorf("could not decrypt aes: %w", err)
 	}
 	zReader, err := zlib.NewReader(bytes.NewReader(encFile))

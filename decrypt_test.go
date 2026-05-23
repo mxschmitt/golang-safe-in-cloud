@@ -1,12 +1,15 @@
+// SPDX-License-Identifier: MIT
+
 package sic
 
 import (
+	"errors"
 	"fmt"
 	"os"
 	"testing"
 )
 
-func TestDecrytionSuccess(t *testing.T) {
+func TestDecryptionSuccess(t *testing.T) {
 	file, err := os.Open("decrypt_test.db")
 	if err != nil {
 		t.Errorf("could not read file: %v", err)
@@ -57,7 +60,7 @@ func TestDecryptionInvalidPassword(t *testing.T) {
 	if err != nil {
 		t.Errorf("could not read file: %v", err)
 	}
-	if _, err = Decrypt(file, "definitely not correct"); err != ErrIncorrectPassword {
-		t.Errorf("could not decrypt: %v", err)
+	if _, err = Decrypt(file, "definitely not correct"); !errors.Is(err, ErrIncorrectPassword) {
+		t.Errorf("expected ErrIncorrectPassword, got: %v", err)
 	}
 }

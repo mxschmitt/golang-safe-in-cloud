@@ -2,8 +2,7 @@ package sic
 
 import (
 	"encoding/xml"
-
-	"github.com/pkg/errors"
+	"fmt"
 )
 
 type Database struct {
@@ -58,5 +57,8 @@ type File struct {
 // Unmarshal converts the xml in []byte into a Go struct
 func Unmarshal(raw []byte) (*Database, error) {
 	var db *Database
-	return db, errors.Wrap(xml.Unmarshal(raw, &db), "could not Unmarshal xml")
+	if err := xml.Unmarshal(raw, &db); err != nil {
+		return nil, fmt.Errorf("could not Unmarshal xml: %w", err)
+	}
+	return db, nil
 }

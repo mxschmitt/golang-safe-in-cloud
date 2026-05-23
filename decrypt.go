@@ -79,7 +79,7 @@ func Decrypt(file io.Reader, password string) ([]byte, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer zReader.Close()
+	defer func() { _ = zReader.Close() }()
 	return io.ReadAll(zReader)
 }
 

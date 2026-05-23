@@ -2,7 +2,7 @@
 [![GoDoc](https://godoc.org/github.com/mxschmitt/golang-safe-in-cloud?status.svg)](http://godoc.org/github.com/mxschmitt/golang-safe-in-cloud)
 [![License](https://img.shields.io/badge/License-MIT-blue.svg)](http://opensource.org/licenses/MIT)
 [![Go Report](https://img.shields.io/badge/Go_report-A+-brightgreen.svg)](http://goreportcard.com/report/mxschmitt/golang-safe-in-cloud)
-[![Build Status](https://travis-ci.org/mxschmitt/golang-safe-in-cloud.svg?branch=master)](https://travis-ci.org/mxschmitt/golang-safe-in-cloud)
+[![CI](https://github.com/mxschmitt/golang-safe-in-cloud/actions/workflows/ci.yml/badge.svg)](https://github.com/mxschmitt/golang-safe-in-cloud/actions/workflows/ci.yml)
 
 # SafeInCloud Golang Decryption
 

@@ -8,15 +8,15 @@ import (
 	"crypto/cipher"
 	"crypto/sha1"
 	"encoding/binary"
+	"errors"
+	"fmt"
 	"io"
-	"io/ioutil"
 
-	"github.com/pkg/errors"
 	"golang.org/x/crypto/pbkdf2"
 )
 
 // ErrIncorrectPassword means that the credentials are incorrect
-var ErrIncorrectPassword = errors.New("Incorrect credentials")
+var ErrIncorrectPassword = errors.New("incorrect credentials")
 
 // Decrypt decrypts a SafeInCloud database by a given file (e.g. os.Open)
 // and a password
@@ -25,41 +25,41 @@ func Decrypt(file io.Reader, password string) ([]byte, error) {
 	var magic uint16
 	// Decrypt the FD
 	if err := binary.Read(data, binary.LittleEndian, &magic); err != nil {
-		return nil, errors.Wrap(err, "could not read magic")
+		return nil, fmt.Errorf("could not read magic: %w", err)
 	}
 	if _, err := data.ReadByte(); err != nil {
-		return nil, errors.Wrap(err, "could not read sver")
+		return nil, fmt.Errorf("could not read sver: %w", err)
 	}
 	salt, err := readByteArray(data)
 	if err != nil {
-		return nil, errors.Wrap(err, "could not read salt")
+		return nil, fmt.Errorf("could not read salt: %w", err)
 	}
 	nonce, err := readByteArray(data)
 	if err != nil {
-		return nil, errors.Wrap(err, "could not read nonce")
+		return nil, fmt.Errorf("could not read nonce: %w", err)
 	}
 	pwd := pbkdf2.Key([]byte(password), salt, 10000, 32, sha1.New)
 	_, err = readByteArray(data) // Idk what this is; salt but not necessary?!
 	if err != nil {
-		return nil, errors.Wrap(err, "could not read salt")
+		return nil, fmt.Errorf("could not read salt: %w", err)
 	}
 	block, err := readByteArray(data)
 	if err != nil {
-		return nil, errors.Wrap(err, "could not read subfd")
+		return nil, fmt.Errorf("could not read subfd: %w", err)
 	}
 	if err := decryptAES(pwd, nonce, &block); err != nil {
-		return nil, errors.Wrap(err, "could not decrypt aes")
+		return nil, fmt.Errorf("could not decrypt aes: %w", err)
 	}
 	fd := bufio.NewReader(bytes.NewBuffer(block))
-	encFile, err := ioutil.ReadAll(data)
+	encFile, err := io.ReadAll(data)
 	if err != nil {
-		return nil, errors.Wrap(err, "could not read remaining encrypted content")
+		return nil, fmt.Errorf("could not read remaining encrypted content: %w", err)
 	}
 	nonce, err = readByteArray(fd)
 	if err == io.ErrUnexpectedEOF {
 		return nil, ErrIncorrectPassword
 	} else if err != nil {
-		return nil, errors.Wrap(err, "could not read nonce")
+		return nil, fmt.Errorf("could not read nonce: %w", err)
 	}
 	pwd, err = readByteArray(fd)
 	if err != nil {
@@ -69,20 +69,20 @@ func Decrypt(file io.Reader, password string) ([]byte, error) {
 		return nil, err
 	}
 	if err := decryptAES(pwd, nonce, &encFile); err != nil {
-		return nil, errors.Wrap(err, "could not decrypt aes")
+		return nil, fmt.Errorf("could not decrypt aes: %w", err)
 	}
 	zReader, err := zlib.NewReader(bytes.NewReader(encFile))
 	if err != nil {
 		return nil, err
 	}
 	defer zReader.Close()
-	return ioutil.ReadAll(zReader)
+	return io.ReadAll(zReader)
 }
 
 func decryptAES(pwd, nonce []byte, content *[]byte) error {
 	block, err := aes.NewCipher(pwd)
 	if err != nil {
-		return errors.Wrap(err, "could not create cipher")
+		return fmt.Errorf("could not create cipher: %w", err)
 	}
 	cipher.NewCBCDecrypter(block, nonce).CryptBlocks(*content, *content)
 	return nil

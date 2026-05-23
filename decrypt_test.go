@@ -17,7 +17,7 @@ func TestDecrytionSuccess(t *testing.T) {
 	}
 	db, err := Unmarshal(raw)
 	if err != nil {
-		t.Errorf("could not unmarshal xml", err)
+		t.Errorf("could not unmarshal xml: %v", err)
 	}
 	tt := []struct {
 		expected string

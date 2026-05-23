@@ -6,6 +6,7 @@ import (
 )
 
 type Database struct {
+	XMLName xml.Name `xml:"database"`
 	Notes   []string `xml:"notes"`
 	LabelID []string `xml:"label_id"`
 	File    [][]File `xml:"file"`

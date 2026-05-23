@@ -1,3 +1,5 @@
+// SPDX-License-Identifier: MIT
+
 package sic
 
 import (
@@ -5,13 +7,12 @@ import (
 	"compress/zlib"
 	"crypto/aes"
 	"crypto/cipher"
+	"crypto/pbkdf2"
 	"crypto/rand"
 	"crypto/sha1"
 	"encoding/binary"
 	"fmt"
 	"io"
-
-	"golang.org/x/crypto/pbkdf2"
 )
 
 // Encrypt encrypts decrypted SafeInCloud database XML using the given
@@ -38,7 +39,10 @@ func Encrypt(raw []byte, password string) ([]byte, error) {
 	if err := writeByteArray(out, outerNonce); err != nil {
 		return nil, fmt.Errorf("could not write nonce: %w", err)
 	}
-	outerKey := pbkdf2.Key([]byte(password), salt, 10000, 32, sha1.New)
+	outerKey, err := pbkdf2.Key(sha1.New, password, salt, 10000, 32)
+	if err != nil {
+		return nil, fmt.Errorf("could not derive key: %w", err)
+	}
 	if err := writeByteArray(out, nil); err != nil {
 		return nil, fmt.Errorf("could not write mystery salt: %w", err)
 	}

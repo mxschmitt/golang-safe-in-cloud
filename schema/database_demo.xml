@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<database>
+
+    <!-- LABELS -->
+    <label name="@string/busines_label" id="1" />
+    <label name="@string/private_label" id="2" />
+    <label name="@string/samples_label" id="3" />
+    <label name="@string/web_accounts_label" id="4" type="web_accounts" />
+
+    <!-- TEMPLATES -->
+    <card title="@string/credit_card_template" id="101" symbol="credit_card" color="gray" template="true" autofill="on">
+        <field name="@string/number_field" type="number" autofill="cc-number"/>
+        <field name="@string/owner_field" type="text" autofill="cc-name" />
+        <field name="@string/expires_field" type="expiry" autofill="cc-exp" />
+        <field name="@string/cvv_field" type="pin" autofill="cc-csc" />
+        <field name="@string/pin_field" type="pin" autofill="off" />
+        <field name="@string/blocking_field" type="phone" autofill="off" />
+    </card>
+    <card title="@string/web_account_template" id="102" symbol="web_site" color="gray" template="true" autofill="on">
+        <field name="@string/login_field" type="login" autofill="username" />
+        <field name="@string/password_field" type="password" autofill="current-password" />
+        <field name="@string/url_field" type="website" autofill="url" />
+        <field name="@string/one_time_password_field" type="one_time_password" autofill="one-time-code" />
+    </card>
+    <card title="@string/email_account_template" id="103" symbol="email" color="gray" template="true" autofill="on">
+        <field name="@string/email_field" type="login" autofill="username"  />
+        <field name="@string/password_field" type="password" autofill="current-password" />
+        <field name="@string/url_field" type="website" autofill="url" />
+        <field name="@string/one_time_password_field" type="one_time_password" autofill="one-time-code" />
+    </card>
+    <card title="@string/login_password_template" id="104" symbol="key" color="gray" template="true" autofill="off">
+        <field name="@string/login_field" type="login" autofill="username" />
+        <field name="@string/password_field" type="password" autofill="current-password" />
+    </card>
+    <card title="@string/code_template" id="100" symbol="lock" color="gray" template="true" autofill="off">
+        <field name="@string/code_field" type="password" autofill="current-password" />
+    </card>
+    <card title="@string/id_passport_template" id="105" symbol="id" color="gray" template="true" autofill="off">
+        <field name="@string/number_field" type="text" autofill="off" />
+        <field name="@string/name_field" type="text" autofill="off" />
+        <field name="@string/birthday_field" type="date" autofill="off" />
+        <field name="@string/issued_field" type="date" autofill="off" />
+        <field name="@string/expires_field" type="expiry" autofill="off" />
+    </card>
+    <card title="@string/insurance_template" id="106" symbol="insurance" color="gray" template="true" autofill="off">
+        <field name="@string/number_field" type="number" autofill="off" />
+        <field name="@string/expires_field" type="expiry" autofill="off" />
+        <field name="@string/phone_field" type="phone" autofill="off" />
+    </card>
+    <card title="@string/membership_template" id="107" symbol="membership" color="gray" template="true" autofill="on">
+        <field name="@string/number_field" type="number" autofill="off" />
+        <field name="@string/login_field" type="login" autofill="username" />
+        <field name="@string/password_field" type="password" autofill="current-password" />
+        <field name="@string/url_field" type="website" autofill="url" />
+        <field name="@string/phone_field" type="phone" autofill="off" />
+    </card>
+    <!-- NEW TEMPLATES -->
+    <card title="@string/bank_account_template" id="108" symbol="bank" color="gray" template="true" autofill="on">
+        <field name="@string/bank_field" type="text" autofill="off" />
+        <field name="@string/holder_field" type="text" autofill="off" />
+        <field name="@string/account_field" type="number" autofill="off" />
+        <field name="@string/type_field" type="text" autofill="off" />
+        <field name="@string/swift_field" type="text" autofill="off" />
+        <field name="@string/iban_field" type="text" autofill="off" />
+        <field name="@string/phone_field" type="phone" autofill="off" />
+        <field name="@string/login_field" type="login" autofill="username" />
+        <field name="@string/password_field" type="password" autofill="current-password" />
+        <field name="@string/url_field" type="website" autofill="url" />
+    </card>
+    <card title="@string/driving_license_template" id="109" symbol="id" color="gray" template="true" autofill="off">
+        <field name="@string/number_field" type="text" autofill="off" />
+        <field name="@string/name_field" type="text" autofill="off" />
+        <field name="@string/birthday_field" type="date" autofill="off" />
+        <field name="@string/class_field" type="text" autofill="off" />
+        <field name="@string/expires_field" type="expiry" autofill="off" />
+    </card>
+    <card title="@string/social_security_template" id="110" symbol="social_security" color="gray" template="true" autofill="off">
+        <field name="@string/number_field" type="text" autofill="off" />
+        <field name="@string/name_field" type="text" autofill="off" />
+    </card>
+    <card title="@string/wifi_router_template" id="111" symbol="router" color="gray" template="true" autofill="off">
+        <field name="@string/network_field" type="text" autofill="off" />
+        <field name="@string/ip_address_field" type="number" autofill="off" />
+        <field name="@string/admin_password_field" type="password" autofill="off" />
+        <field name="@string/wifi_password_field" type="password" autofill="current-password" />
+    </card>
+    <card title="@string/internet_provider_template" id="112" symbol="network" color="gray" template="true" autofill="on">
+        <field name="@string/protocol_field" type="text" autofill="off" />
+        <field name="@string/login_field" type="login" autofill="username" />
+        <field name="@string/password_field" type="password" autofill="current-password" />
+        <field name="@string/dns_field" type="number" autofill="off" />
+        <field name="@string/dns_2_field" type="number" autofill="off" />
+        <field name="@string/url_field" type="website" autofill="url" />
+    </card>
+    <card title="@string/software_license_template" id="113" symbol="cd" color="gray" template="true" autofill="on">
+        <field name="@string/email_field" type="login" autofill="username" />
+        <field name="@string/password_field" type="password" autofill="current-password" />
+        <field name="@string/key_field" type="text" autofill="off" />
+        <field name="@string/url_field" type="website" autofill="url" />
+    </card>
+    <card title="@string/totp_template" id="120" symbol="key" color="gray" template="true" autofill="on">
+        <field name="@string/one_time_password_field" type="one_time_password" autofill="one-time-code" />
+        <field name="@string/url_field" type="website" autofill="url" />
+    </card>
+    <card title="@string/custom_template" id="114" color="gray" template="true" autofill="off">
+    </card>
+
+    <!-- SAMPLES -->
+    <card title="Facebook" id="301" symbol="f" color="0xff3f5ca8" autofill="on" star="true">
+        <field name="@string/login_field" type="login" autofill="username">john555@gmail.com</field>
+        <field name="@string/password_field" type="password" autofill="current-password">early91*Fail*301</field>
+        <field name="@string/one_time_password_field" type="one_time_password" autofill="one-time-code">kqvh wnn7 6zqu 5cua kzcb jlk4 yjww au5b</field>
+        <field name="@string/url_field" type="website" autofill="url">https://facebook.com</field>
+        <label_id>3</label_id>
+    </card>
+    <card title="Airbnb" id="317" symbol="t" color="blue" autofill="on" star="true">
+        <field name="@string/login_field" type="login" autofill="username">john555@gmail.com</field>
+        <field name="@string/password_field" type="password" autofill="current-password">early91*Fail*317</field>
+        <field name="@string/one_time_password_field" type="one_time_password" autofill="one-time-code" />
+        <field name="@string/url_field" type="website" autofill="url">https://airbnb.com</field>
+        <label_id>3</label_id>
+    </card>
+    <card title="Netflix" id="310" symbol="t" color="blue" autofill="on">
+        <field name="@string/login_field" type="login" autofill="username">john555@gmail.com</field>
+        <field name="@string/password_field" type="password" autofill="current-password">early91*Fail*310</field>
+        <field name="@string/one_time_password_field" type="one_time_password" autofill="one-time-code" />
+        <field name="@string/url_field" type="website" autofill="url">https://netflix.com</field>
+        <label_id>3</label_id>
+    </card>
+    <card title="Amazon" id="311" symbol="t" color="blue" autofill="on">
+        <field name="@string/login_field" type="login" autofill="username">john555@gmail.com</field>
+        <field name="@string/password_field" type="password" autofill="current-password">early91*Fail*311</field>
+        <field name="@string/one_time_password_field" type="one_time_password" autofill="one-time-code" />
+        <field name="@string/url_field" type="website" autofill="url">https://amazon.com</field>
+        <label_id>3</label_id>
+    </card>
+    <card title="LinkedIn" id="312" symbol="t" color="blue" autofill="on">
+        <field name="@string/login_field" type="login" autofill="username">john555@gmail.com</field>
+        <field name="@string/password_field" type="password" autofill="current-password">early91*Fail*312</field>
+        <field name="@string/one_time_password_field" type="one_time_password" autofill="one-time-code" />
+        <field name="@string/url_field" type="website" autofill="url">https://linkedin.com</field>
+        <label_id>3</label_id>
+    </card>
+    <card title="Instagram" id="313" symbol="t" color="blue" autofill="on">
+        <field name="@string/login_field" type="login" autofill="username">john555@gmail.com</field>
+        <field name="@string/password_field" type="password" autofill="current-password">early91*Fail*313</field>
+        <field name="@string/one_time_password_field" type="one_time_password" autofill="one-time-code" />
+        <field name="@string/url_field" type="website" autofill="url">https://instagram.com</field>
+        <label_id>3</label_id>
+    </card>
+    <card title="Mastercard" id="315" symbol="visa" color="0xff3f5ca8" autofill="on">
+        <field name="@string/number_field" type="number" autofill="cc-number">5555123456789000</field>
+        <field name="@string/owner_field" type="text" autofill="cc-name">John Smith</field>
+        <field name="@string/expires_field" type="expiry" autofill="cc-exp">01/23</field>
+        <field name="@string/cvv_field" type="pin" autofill="cc-csc">555</field>
+        <field name="@string/pin_field" type="pin" autofill="off">1111</field>
+        <field name="@string/blocking_field" type="phone" autofill="off" />
+        <field name="@string/url_field" type="website" autofill="url">https://mastercard.com</field>
+        <label_id>3</label_id>
+    </card>
+    <card title="PayPal" id="316" symbol="t" color="blue" autofill="on">
+        <field name="@string/login_field" type="login" autofill="username">john555@gmail.com</field>
+        <field name="@string/password_field" type="password" autofill="current-password">early91*Fail*316</field>
+        <field name="@string/one_time_password_field" type="one_time_password" autofill="one-time-code" />
+        <field name="@string/url_field" type="website" autofill="url">https://paypal.com</field>
+        <label_id>3</label_id>
+    </card>
+    <card title="X" id="318" symbol="t" color="blue" autofill="on">
+        <field name="@string/login_field" type="login" autofill="username">john555@gmail.com</field>
+        <field name="@string/password_field" type="password" autofill="current-password">early91*Fail*316</field>
+        <field name="@string/one_time_password_field" type="one_time_password" autofill="one-time-code" />
+        <field name="@string/url_field" type="website" autofill="url">https://twitter.com</field>
+        <label_id>3</label_id>
+    </card>
+
+</database>
